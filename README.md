@@ -1,6 +1,6 @@
 # GF-ZzalShow
 
-gf-zzalshow는 Safebooru API를 이용하여 소녀전선 이미지를 탐색할 수 있는 토이 프로젝트입니다.
+**gf-zzalshow**(http://zzalshow.krissvector.moe:4577/)는 Safebooru API를 이용하여 소녀전선 이미지를 탐색할 수 있는 토이 프로젝트입니다.
 
 
 
