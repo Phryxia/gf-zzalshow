@@ -1,0 +1,31 @@
+{
+  "name": "gf-zzalshow",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "boot": "node index.js",
+    "build": "webpack --config webpack.prod.js",
+    "build-test": "webpack --config webpack.dev.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-react": "^7.12.10",
+    "@babel/preset-typescript": "^7.12.7",
+    "babel-loader": "^8.2.2",
+    "webpack": "^5.19.0",
+    "webpack-cli": "^4.4.0",
+    "webpack-merge": "^5.7.3"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "request": "^2.88.2",
+    "xml-js": "^1.6.11"
+  }
+}
