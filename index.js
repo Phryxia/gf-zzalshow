@@ -23,6 +23,7 @@ app.use(express.static('dist'));
 app.get('/api', async (req, res) => {
   const params = querystring.stringify(req.query);
   const reqUrl = safebooruApiUrl + '&' + params;
+  console.log('XML-API requested: ' + reqUrl);
 
   // Safebooru로 요청
   try {

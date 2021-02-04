@@ -95,6 +95,29 @@ header {
   margin-bottom: 0.5em;
 }
 
+/* 태그 검색 바 */
+.search-bar {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+}
+
+.search-bar input {
+  width: 100%;
+  font-size: 2vw;
+}
+
+/* 추천검색어 리스트의 각 엘리먼트 */
+.recommendation {
+  width: 100%;
+  text-align: left;
+}
+
+.recommendation:hover {
+  background-color: cornsilk;
+}
+
 .disabled {
   visibility: hidden;
 }
