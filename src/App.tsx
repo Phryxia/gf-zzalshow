@@ -73,7 +73,7 @@ export const App = (props: AppProps) => {
       else
         setMetaInfos(metaInfos.concat(newInfos));
 
-      setPid(pid + 1);
+      setPid(pageId + 1);
     })
     .catch(exception => console.log(exception));
   };

@@ -114,18 +114,14 @@ export const SearchEngine = (props: SearchEngineProps) => {
       }} value={raw} />
 
       {/* 추천 키워드들을 나열한다 */}
-      {
-        keywords[keywords.length - 1]
-        ? <div>
-            {recommendations.map(record => 
-            <div key={record.name} 
-              className='recommendation'
-              onClick={() => autoComplete(record)}>
-                {record.name + ` (${record.posts})`}
-              </div>)}
-          </div>
-        : null
-      }
+      <div>
+        {recommendations.map(record => 
+        <div key={record.name} 
+          className='recommendation'
+          onClick={() => autoComplete(record)}>
+            {record.name + ` (${record.posts})`}
+          </div>)}
+      </div>
     </div>
   );
 };
