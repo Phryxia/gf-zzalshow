@@ -4,8 +4,6 @@ import { Thumbnail } from './Thumbnail';
 import { MetaInfo } from './MetaInfo';
 import { SearchEngine } from './SearchEngine';
 
-const imagesPerPage = 10;
-
 type AppProps = {
 
 };
@@ -25,8 +23,10 @@ export const App = (props: AppProps) => {
 
   const [append, setAppend] = useState(false);
 
+  const [urls, setUrls] = useState({});
+
   // API 로드 함수
-  const loadImage = (numOfImage: number, clear: boolean, pageId: number): void => {
+  const loadImage = (numOfImage: number, clear: boolean, pageId: number, urls: {}): void => {
     fetch(`/api?limit=${numOfImage}&pid=${pageId}&tags=${keywords.join(' ')}`, {
       method: 'GET',
       headers: {
@@ -43,6 +43,13 @@ export const App = (props: AppProps) => {
 
       // posts 객체 하나하나마다 post가 들어있음
       for (const post of json.posts.post) {
+        // 중복된 이미지가 들어올 수도 있다. 가령 pid=10 -> pid=11로 옮기는
+        // 과정에서 서버에 이미지가 추가되어,pid=10에서 나왔던 이미지가 pid=11에서
+        // 다시 API에 실려올 수가 있다.
+        if (urls[post._attributes.sample_url])
+          continue;
+        urls[post._attributes.sample_url] = true;
+
         newInfos.push({
           fileUrl:      post._attributes.file_url,
           width:        post._attributes.width,
@@ -74,6 +81,7 @@ export const App = (props: AppProps) => {
         setMetaInfos(metaInfos.concat(newInfos));
 
       setPid(pageId + 1);
+      setUrls({ ... urls });
     })
     .catch(exception => console.log(exception));
   };
@@ -103,7 +111,7 @@ export const App = (props: AppProps) => {
    * 키워드가 변경되면 이미지를 다 지우고 새로 로드한다.
    */
   useEffect(() => {
-    loadImage(25, true, 0);
+    loadImage(25, true, 0, {});
   }, [keywords]);
 
   /**
@@ -112,7 +120,7 @@ export const App = (props: AppProps) => {
   useEffect(() => {
     if (append) {
       setAppend(false);
-      loadImage(25, false, pid);
+      loadImage(25, false, pid, urls);
     }
   }, [append]);
 
@@ -129,7 +137,7 @@ export const App = (props: AppProps) => {
       
       {/* 섬네일들 */}
       <div className='thumbnails-container'>
-        {metaInfos.map(metaInfo => <Thumbnail key={metaInfo.sampleUrl} imageUrl={metaInfo.sampleUrl} onClick={() => setSelectedImage(metaInfo)} />)}
+        {metaInfos.map(metaInfo => <Thumbnail key={metaInfo.previewUrl} imageUrl={metaInfo.previewUrl} onClick={() => setSelectedImage(metaInfo)} />)}
       </div>
 
       {/* 모달 */}
@@ -138,7 +146,10 @@ export const App = (props: AppProps) => {
         originalUrl={selectedImage?.fileUrl}
         tags={selectedImage?.tags} 
         uploadedDate={selectedImage?.createdAt} 
-        onClickWall={() => setSelectedImage(null)} />      
+        onClickWall={() => setSelectedImage(null)} />
+      
+      {/* 맨 위로 올라가기 버튼 */}
+      <input type='button' id='elevator' value='▲' onClick={() => document.querySelector('#root').scrollIntoView({ behavior: 'smooth'})} />
     </div>
   );
 }
