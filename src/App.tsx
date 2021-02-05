@@ -8,6 +8,9 @@ type AppProps = {
 
 };
 
+const imagesPerRequest = 25;
+const firstLoadMultiple = 2;
+
 export const App = (props: AppProps) => {
   // 현재 로드된 이미지들
   const [metaInfos, setMetaInfos] = useState([] as MetaInfo[]);
@@ -75,12 +78,15 @@ export const App = (props: AppProps) => {
         });
       }
 
-      if (clear)
+      if (clear) {
+        // 초기화 할 땐 2배수로 로드하기 때문에 pid값을 그만큼 증가시켜놔야 한다.
         setMetaInfos(newInfos);
-      else
+        setPid(pageId + firstLoadMultiple);
+      }
+      else {
         setMetaInfos(metaInfos.concat(newInfos));
-
-      setPid(pageId + 1);
+        setPid(pageId + 1);
+      }
       setUrls({ ... urls });
     })
     .catch(exception => console.log(exception));
@@ -109,9 +115,10 @@ export const App = (props: AppProps) => {
 
   /**
    * 키워드가 변경되면 이미지를 다 지우고 새로 로드한다.
+   * 페이지를 가득 채우기 위해 2배수를 로드한다.
    */
   useEffect(() => {
-    loadImage(25, true, 0, {});
+    loadImage(imagesPerRequest * firstLoadMultiple, true, 0, {});
   }, [keywords]);
 
   /**
@@ -120,7 +127,7 @@ export const App = (props: AppProps) => {
   useEffect(() => {
     if (append) {
       setAppend(false);
-      loadImage(25, false, pid, urls);
+      loadImage(imagesPerRequest, false, pid, urls);
     }
   }, [append]);
 
@@ -142,7 +149,7 @@ export const App = (props: AppProps) => {
       {/* 섬네일들 */}
       <div className='thumbnails-container'>
         {metaInfos.map(metaInfo => 
-        <Thumbnail key={metaInfo.previewUrl} imageUrl={metaInfo.previewUrl} onClick={() => setSelectedImage(metaInfo)} />)}
+        <Thumbnail key={metaInfo.sampleUrl} imageUrl={metaInfo.sampleUrl} onClick={() => setSelectedImage(metaInfo)} />)}
       </div>
 
       {/* 모달 */}
