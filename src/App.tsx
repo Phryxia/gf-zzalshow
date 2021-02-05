@@ -132,12 +132,15 @@ export const App = (props: AppProps) => {
       {/* 헤더 */}
       <header>
         <h1>Easy Safebooru</h1>
-        <SearchEngine onSearchStart={new_keywords => setKeywords(new_keywords)}/>
       </header>
       
+      {/* 검색 창 */}
+      <SearchEngine onSearchStart={new_keywords => setKeywords(new_keywords)}/>
+
       {/* 섬네일들 */}
       <div className='thumbnails-container'>
-        {metaInfos.map(metaInfo => <Thumbnail key={metaInfo.previewUrl} imageUrl={metaInfo.previewUrl} onClick={() => setSelectedImage(metaInfo)} />)}
+        {metaInfos.map(metaInfo => 
+        <Thumbnail key={metaInfo.previewUrl} imageUrl={metaInfo.previewUrl} onClick={() => setSelectedImage(metaInfo)} />)}
       </div>
 
       {/* 모달 */}

@@ -1,5 +1,16 @@
+* {
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+}
+
 header {
-  border-bottom: rgb(220, 220, 220) solid 1px;
+  height: 96px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+header h1 {
   text-align: center;
 }
 
@@ -21,7 +32,6 @@ header {
 }
 
 .thumbnail-img {
-  position: sticky;
   width: 100%;
   margin-top: 50%;
   transform: translateY(-50%);
@@ -103,33 +113,39 @@ header {
   margin-bottom: 0.5em;
 }
 
-/* 태그 검색 바 */
+/* 태그 검색 관련 div */
 .search-bar {
-  width: 100%;
+  left: 0;
+  right: 0;
+  height: 3vw;
   display: flex;
   justify-content: stretch;
   align-content: flex-start;
-}
-
-.search-bar-sub {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
+  overflow-y: visible;
 }
 
 .search-bar input {
-  height: 3vw;
+  height: 100%;
   font-size: 2vw;
 }
 
+.search-bar input[type='button'] {
+  width: 5%;
+}
+
 .search-bar input[type='search'] {
-  width: 100%;
+  width: 95%;
 }
 
 /* 추천검색어가 뜨는 창 */
 .recommendation-container {
+  z-index: 1;
+  position: absolute;
+  left: 5%;
+  right: 0;
   max-height: 16em;
   overflow-y: scroll;
+  background-color: white;
 }
 
 /* 추천검색어 리스트의 각 엘리먼트 */
