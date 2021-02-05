@@ -51,12 +51,20 @@ header h1 {
   transform: translateY(-50%);
 }
 
+/* 맨 위로 올라가는 버튼 */
 #elevator {
   position: fixed;
   width: 100px;
   height: 50px;
   right: 50px;
   bottom: 50px;
+  border-style: none;
+  border-radius: 5px;
+  box-shadow: 3px 3px 3px black;
+
+  background-color: #006ffa;
+  color: white;
+  font-size: 20px;
 }
 
 /* 모달창 뒷 배경 */
