@@ -161,7 +161,7 @@ export const App = (props: AppProps) => {
         onClickWall={() => setSelectedImage(null)} />
       
       {/* 맨 위로 올라가기 버튼 */}
-      <input type='button' id='elevator' value='▲' onClick={() => document.querySelector('#root').scrollIntoView({ behavior: 'smooth'})} />
+      <input type='button' id='elevator' value='▲' onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} />
     </div>
   );
 }
