@@ -113,11 +113,11 @@ export const SearchEngine = (props: SearchEngineProps) => {
    * 뷰!
    */
   return (
-    <div>
-      <div className='search-bar'>
-        {/* 검색 버튼 */}
-        <input type='button' value='검색' onClick={() => props.onSearchStart(keywords)} />
+    <div className='search-bar'>
+      {/* 검색 버튼 */}
+      <input type='button' value='검색' onClick={() => props.onSearchStart(keywords)} />
 
+      <div className='search-bar-sub'>
         {/* 검색어 */}
         <input type='search' placeholder='영문 태그를 입력해주세요' onChange={(evt) => {
           // onChangeKeyword 디바운싱
@@ -135,15 +135,15 @@ export const SearchEngine = (props: SearchEngineProps) => {
             setRecommendationOn(false);
           }
         }} value={raw} />
-      </div>
 
-      {/* 추천 키워드들을 나열한다 */}
-      <div className={'recommendation-container transition' + (recommendationOn ? '' : ' close')}>
-        {recommendations.map(record => 
-        <div key={record.name} className='recommendation' onClick={() => autoComplete(record)}>
-          {record.name + ` (${record.posts})`}
-        </div>)}
-      </div>   
+        {/* 추천 키워드들을 나열한다 */}
+        <div className={'recommendation-container transition' + (recommendationOn ? '' : ' close')}>
+          {recommendations.map(record => 
+          <div key={record.name} className='recommendation' onClick={() => autoComplete(record)}>
+            {record.name + ` (${record.posts})`}
+          </div>)}
+        </div>
+      </div>
     </div>
   );
 };

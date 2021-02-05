@@ -3,11 +3,24 @@
   padding: 0 0 0 0;
 }
 
+body {
+  background-color:rgb(220, 220, 220);
+}
+
+.app {
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+}
+
 header {
   height: 96px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  background-color: #006ffa;
+  color: white;
 }
 
 header h1 {
@@ -19,15 +32,16 @@ header h1 {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: space-around;
   align-items: flex-start;
 }
 
 .thumbnail {
-  width: 18vw;
-  height: 18vw;
+  width: 180px;
+  height: 180px;
   background-color: whitesmoke;
   box-shadow: 3px 3px  rgb(220, 220, 220);
-  margin: 5px;  
+  margin: 5px;
   overflow: hidden;
 }
 
@@ -99,12 +113,12 @@ header h1 {
   flex-wrap: wrap;
   align-items: baseline;
   align-content: baseline;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 /* 태그 */
 .tag {
-  background-color: rgb(220, 20, 20);
+  background-color: #006ffa;
   color: whitesmoke;
   border-radius: 0.5em;
   padding-left: 0.5em;
@@ -115,44 +129,66 @@ header h1 {
 
 /* 태그 검색 관련 div */
 .search-bar {
-  left: 0;
-  right: 0;
-  height: 3vw;
+  height: 3em;
   display: flex;
   justify-content: stretch;
   align-content: flex-start;
   overflow-y: visible;
 }
 
+.search-bar-sub {
+  position: relative;
+  width: 100%;
+  height: 3em;
+  overflow-x: clip;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
 .search-bar input {
   height: 100%;
-  font-size: 2vw;
+  font-size: 1em;
 }
 
+/* 검색 버튼 */
 .search-bar input[type='button'] {
-  width: 5%;
+  width: 128px;
 }
 
+/* 검색 창  */
 .search-bar input[type='search'] {
-  width: 95%;
+  width: 100%;
+  padding-left: 10px;
 }
 
-/* 추천검색어가 뜨는 창 */
+/*
+  추천검색어가 뜨는 창
+  search-bar-sub를 따라감 
+*/
 .recommendation-container {
   z-index: 1;
   position: absolute;
-  left: 5%;
-  right: 0;
+  width: 100%;
+  margin-top: 3em;
   max-height: 16em;
   overflow-y: scroll;
+  overflow-x: hidden;
   background-color: white;
+  white-space: nowrap;
 }
 
 /* 추천검색어 리스트의 각 엘리먼트 */
 .recommendation {
   width: 100%;
+  height: 2em;
+  padding-left: 10px;
   text-align: left;
-  font-size: 2vw;
+
+  /* 텍스트 수직 정렬 */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .recommendation:hover {
