@@ -31,19 +31,25 @@ export const Modal = (props: ModalProps) => {
 
         {/* 모달 이미지 정보 */}
         <div className='modal-info'>
-          <div><strong>Tags</strong></div>
-          <hr />
+          <div className='modal-info-tags'>
+            <strong>Tags</strong>
+            <hr />
 
-          {/* 태그들 */}
-          <div className='tags-container'>
-            {props.isVisible ? props.tags.map(tag => <Tag key={tag} tagName={tag} />) : null}
+            {/* 태그들 */}
+            <div className='tags-container'>
+              {props.isVisible ? props.tags.map(tag => <Tag key={tag} tagName={tag} />) : null}
+            </div>
           </div>
 
-          <div><strong>Date</strong></div>
-          <hr />
 
           {/* 날짜 */}
-          <div>{props.uploadedDate?.getFullYear()}-{props.uploadedDate?.getMonth()+1}-{props.uploadedDate?.getDate()}</div>
+          <div className='modal-info-date'>
+            <strong>Date</strong>
+            <hr />
+            <div>
+              {props.uploadedDate?.getFullYear()}-{props.uploadedDate?.getMonth()+1}-{props.uploadedDate?.getDate()}
+            </div>
+          </div>
         </div>
       </div>
     </div>

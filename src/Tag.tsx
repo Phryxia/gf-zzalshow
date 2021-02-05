@@ -1,7 +1,8 @@
 import React from 'react';
 
 type TagProps = {
-  tagName: string
+  tagName: string,
+  key: string
 };
 
 export const Tag = (props: TagProps) => {

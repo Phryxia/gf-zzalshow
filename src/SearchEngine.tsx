@@ -115,11 +115,11 @@ export const SearchEngine = (props: SearchEngineProps) => {
   return (
     <div className='search-bar'>
       {/* 검색 버튼 */}
-      <input type='button' value='검색' onClick={() => props.onSearchStart(keywords)} />
+      <input type='button' value='Search' onClick={() => props.onSearchStart(keywords)} />
 
       <div className='search-bar-sub'>
         {/* 검색어 */}
-        <input type='search' placeholder='영문 태그를 입력해주세요' onChange={(evt) => {
+        <input type='search' placeholder='Type some tags...' onChange={(evt) => {
           // onChangeKeyword 디바운싱
           if (debounceTimer)
             clearTimeout(debounceTimer);
