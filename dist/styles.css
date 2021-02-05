@@ -5,12 +5,11 @@
 
 body {
   background-color:rgb(220, 220, 220);
-  margin-top: 96px;
+  margin-top: 140px;
 }
 
 .app {
   position: relative;
-  max-width: 960px;
   margin-left: auto;
   margin-right: auto;
   background-color: white;
@@ -20,7 +19,6 @@ body {
 .header {
   z-index: 1;
   width: 100%;
-  max-width: 960px;
   position: fixed;
   top: 0;
 }
@@ -43,13 +41,10 @@ header h1 {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: flex-start;
 }
 
 .thumbnail {
-  width: 180px;
-  height: 180px;
+  height: 20vw;
   background-color: whitesmoke;
   box-shadow: 3px 3px  rgb(220, 220, 220);
   margin: 5px;
@@ -57,9 +52,7 @@ header h1 {
 }
 
 .thumbnail-img {
-  width: 100%;
-  margin-top: 50%;
-  transform: translateY(-50%);
+  height: 100%;
 }
 
 /* 맨 위로 올라가는 버튼 */
