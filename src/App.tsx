@@ -131,7 +131,7 @@ export const App = (props: AppProps) => {
     <div className='app'>
       {/* 헤더 */}
       <header>
-        <h1>Easy Safebooru</h1>
+        <h1>Simple Safebooru</h1>
       </header>
       
       {/* 검색 창 */}
