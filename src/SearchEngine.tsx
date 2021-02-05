@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 type SearchEngineProps = {
-  onChangeKeyword: (keywords) => void
+  onSearchStart: (keywords) => void
 };
 
 type Recommendation = {
@@ -29,6 +29,9 @@ export const SearchEngine = (props: SearchEngineProps) => {
 
   const [debounceTimer, setDebounceTimer] = useState(null);
 
+  // 추천키워드 표시 여부
+  const [recommendationOn, setRecommendationOn] = useState(false);
+
   // 키워드가 확정된 이후, 서버 태그 API를 호출한다.
   useEffect(() => {
     const lastKeyword = keywords[keywords.length - 1];
@@ -50,7 +53,10 @@ export const SearchEngine = (props: SearchEngineProps) => {
         new_recommendations.push(record);
       }
 
-      setRecommendations(new_recommendations.slice(0, 16));
+      setRecommendations(new_recommendations);
+
+      // 로드가 완료됐으면 추천 검색어를 보여준다.
+      setRecommendationOn(true);
     })
     .catch(exception => console.log(exception));
   }, [keywords]);
@@ -80,8 +86,6 @@ export const SearchEngine = (props: SearchEngineProps) => {
       return;
 
     setKeywords([... new_keywords]);
-
-    props.onChangeKeyword(new_keywords);
   };
 
   /**
@@ -100,6 +104,9 @@ export const SearchEngine = (props: SearchEngineProps) => {
       clearTimeout(debounceTimer);
 
     onChangeKeyword(keywords.slice(0, keywords.length - 1).concat([recommendation.name]));
+    
+    // 자동완성을 했으면 검색어 키워드 추천창은 닫는다.
+    setRecommendationOn(false);
   }
 
   /**
@@ -107,25 +114,37 @@ export const SearchEngine = (props: SearchEngineProps) => {
    */
   return (
     <div className='search-bar'>
-      <input type='search' placeholder='영문 태그를 입력해주세요' onChange={(evt) => {
-        // onChangeKeyword 디바운싱
-        if (debounceTimer)
-          clearTimeout(debounceTimer);
-        
-        setDebounceTimer(setTimeout(() => onChangeKeyword(evt.target.value.split(' ')), DEBOUNCE_TIME));
-        
-        setRaw(evt.target.value);
-      }} value={raw} />
+      {/* 검색 버튼 */}
+      <input type='button' value='검색' onClick={() => props.onSearchStart(keywords)} />  
+      
+      {/* 검색어랑 검색어 추천 */}
+      <div className='search-bar-sub'>
+        {/* 검색어 */}
+        <input type='search' placeholder='영문 태그를 입력해주세요' onChange={(evt) => {
+          // onChangeKeyword 디바운싱
+          if (debounceTimer)
+            clearTimeout(debounceTimer);
+          
+          setDebounceTimer(setTimeout(() => onChangeKeyword(evt.target.value.split(' ')), DEBOUNCE_TIME));
+          
+          setRaw(evt.target.value);
+        }} onKeyUp={(evt: KeyboardEvent) => {
+          // 키보드 엔터를 치면 onSearchStart를 호출한다.
+          if (evt.key === 'Enter') {
+            props.onSearchStart(keywords);
 
-      {/* 추천 키워드들을 나열한다 */}
-      <div>
-        {recommendations.map(record => 
-        <div key={record.name} 
-          className='recommendation'
-          onClick={() => autoComplete(record)}>
+            setRecommendationOn(false);
+          }
+        }} value={raw} />
+        
+        {/* 추천 키워드들을 나열한다 */}
+        <div className={'recommendation-container transition' + (recommendationOn ? '' : ' close')}>
+          {recommendations.map(record => 
+          <div key={record.name} className='recommendation' onClick={() => autoComplete(record)}>
             {record.name + ` (${record.posts})`}
           </div>)}
-      </div>
+        </div>
+      </div>      
     </div>
   );
 };

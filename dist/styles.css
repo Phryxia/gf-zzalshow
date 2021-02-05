@@ -107,19 +107,36 @@ header {
 .search-bar {
   width: 100%;
   display: flex;
-  flex-direction: column;
   justify-content: stretch;
+  align-content: flex-start;
+}
+
+.search-bar-sub {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .search-bar input {
-  width: 100%;
+  height: 3vw;
   font-size: 2vw;
+}
+
+.search-bar input[type='search'] {
+  width: 100%;
+}
+
+/* 추천검색어가 뜨는 창 */
+.recommendation-container {
+  max-height: 16em;
+  overflow-y: scroll;
 }
 
 /* 추천검색어 리스트의 각 엘리먼트 */
 .recommendation {
   width: 100%;
   text-align: left;
+  font-size: 2vw;
 }
 
 .recommendation:hover {
@@ -128,4 +145,15 @@ header {
 
 .disabled {
   visibility: hidden;
+}
+
+/* ease-out-cubic. Checkout Here: https://matthewlein.com/tools/ceaser */
+.transition {
+  transition-duration: 500ms;
+  transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);;
+}
+
+.close {
+  height: 0px;
+  overflow: hidden;
 }

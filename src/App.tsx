@@ -132,7 +132,7 @@ export const App = (props: AppProps) => {
       {/* 헤더 */}
       <header>
         <h1>Easy Safebooru</h1>
-        <SearchEngine onChangeKeyword={(new_keywords) => setKeywords(new_keywords)}/>
+        <SearchEngine onSearchStart={new_keywords => setKeywords(new_keywords)}/>
       </header>
       
       {/* 섬네일들 */}
