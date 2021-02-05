@@ -1,6 +1,6 @@
 * {
-  margin: 0 0 0 0;
-  padding: 0 0 0 0;
+  margin: 0;
+  padding: 0;
 }
 
 body {
@@ -44,11 +44,19 @@ header h1 {
 }
 
 .thumbnail {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
   height: 20vw;
-  background-color: whitesmoke;
+  background-color: #006ffa;
   box-shadow: 3px 3px  rgb(220, 220, 220);
   margin: 5px;
   overflow: hidden;
+}
+
+.thumbnail[data-isloaded="false"] {
+  width: 20vw;
 }
 
 .thumbnail-img {
