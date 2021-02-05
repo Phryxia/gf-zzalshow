@@ -129,13 +129,15 @@ export const App = (props: AppProps) => {
    */
   return (
     <div className='app'>
-      {/* 헤더 */}
-      <header>
-        <h1>Simple Safebooru</h1>
-      </header>
-      
-      {/* 검색 창 */}
-      <SearchEngine onSearchStart={new_keywords => setKeywords(new_keywords)}/>
+      <div className='header'>
+        {/* 헤더 */}
+        <header>
+          <h1>Simple Safebooru</h1>
+        </header>
+        
+        {/* 검색 창 */}
+        <SearchEngine onSearchStart={new_keywords => setKeywords(new_keywords)}/>
+      </div>
 
       {/* 섬네일들 */}
       <div className='thumbnails-container'>

@@ -5,13 +5,24 @@
 
 body {
   background-color:rgb(220, 220, 220);
+  margin-top: 96px;
 }
 
 .app {
+  position: relative;
   max-width: 960px;
   margin-left: auto;
   margin-right: auto;
   background-color: white;
+}
+
+/* 실제로 떠있는 H1 + 검색창 */
+.header {
+  z-index: 1;
+  width: 100%;
+  max-width: 960px;
+  position: fixed;
+  top: 0;
 }
 
 header {
