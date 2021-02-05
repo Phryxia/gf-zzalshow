@@ -31,7 +31,6 @@ export const SearchEngine = (props: SearchEngineProps) => {
 
   // 키워드가 확정된 이후, 서버 태그 API를 호출한다.
   useEffect(() => {
-    console.log('on keyword change!');
     const lastKeyword = keywords[keywords.length - 1];
     if (!lastKeyword)
       return;
@@ -79,8 +78,6 @@ export const SearchEngine = (props: SearchEngineProps) => {
     // 같은 키워드들이면 setter를 호출하지 않는다.
     if (isSame)
       return;
-
-    console.log('change keyword!');
 
     setKeywords([... new_keywords]);
 
