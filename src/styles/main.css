@@ -49,13 +49,14 @@ header h1 {
   justify-content: space-around;
 
   height: 20vw;
-  background-color: #006ffa;
+  background-color: whitesmoke;
   box-shadow: 3px 3px  rgb(220, 220, 220);
   margin: 5px;
   overflow: hidden;
 }
 
 .thumbnail[data-isloaded="false"] {
+  background-color: #006ffa;
   width: 20vw;
 }
 
