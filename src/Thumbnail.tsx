@@ -2,7 +2,8 @@ import React from 'react';
 
 type ThumbnailProps = {
   imageUrl: string,
-  onClick: () => void
+  onClick: () => void,
+  key: string
 };
 
 export const Thumbnail = (props: ThumbnailProps) => {

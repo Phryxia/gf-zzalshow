@@ -11,14 +11,14 @@ type Recommendation = {
   type: string
 };
 
-const DEBOUNCE_TIME = 500;
+const DEBOUNCE_TIME = 300;
 
 /**
  * 태그 검색 엔진
  * @param props 
  */
 export const SearchEngine = (props: SearchEngineProps) => {
-  // raw string
+  // 검색 바에 표시될 내용
   const [raw, setRaw] = useState('');
 
   // 키워드!
@@ -27,8 +27,11 @@ export const SearchEngine = (props: SearchEngineProps) => {
   // 추천키워드들
   const [recommendations, setRecommendations] = useState([] as Recommendation[]);
 
+  const [debounceTimer, setDebounceTimer] = useState(null);
+
   // 키워드가 확정된 이후, 서버 태그 API를 호출한다.
   useEffect(() => {
+    console.log('on keyword change!');
     const lastKeyword = keywords[keywords.length - 1];
     if (!lastKeyword)
       return;
@@ -53,6 +56,10 @@ export const SearchEngine = (props: SearchEngineProps) => {
     .catch(exception => console.log(exception));
   }, [keywords]);
 
+  /**
+   * 디바운스 된 함수
+   * @param new_keywords 
+   */
   const onChangeKeyword = (new_keywords) => {
     // 기존 키워드랑 같은지 비교
     let isSame = new_keywords.length === keywords.length;
@@ -73,12 +80,12 @@ export const SearchEngine = (props: SearchEngineProps) => {
     if (isSame)
       return;
 
+    console.log('change keyword!');
+
     setKeywords([... new_keywords]);
 
     props.onChangeKeyword(new_keywords);
   };
-
-  let onChangeKeywordTimer = null;
 
   /**
    * recommendation으로 현재 입력 중인 키워드 검색창을 자동완성한다.
@@ -92,8 +99,8 @@ export const SearchEngine = (props: SearchEngineProps) => {
       setRaw(keywords.slice(0, keywords.length - 1).join(' ') + ' ' + recommendation.name);
     
     // 키워드도 동기화해준다. 그동안 돌고있던 디바운스는 취소시킨다.
-    if (onChangeKeywordTimer)
-      clearTimeout(onChangeKeywordTimer);
+    if (debounceTimer)
+      clearTimeout(debounceTimer);
 
     onChangeKeyword(keywords.slice(0, keywords.length - 1).concat([recommendation.name]));
   }
@@ -105,10 +112,10 @@ export const SearchEngine = (props: SearchEngineProps) => {
     <div className='search-bar'>
       <input type='search' placeholder='영문 태그를 입력해주세요' onChange={(evt) => {
         // onChangeKeyword 디바운싱
-        if (onChangeKeywordTimer)
-          clearTimeout(onChangeKeywordTimer);
+        if (debounceTimer)
+          clearTimeout(debounceTimer);
         
-        onChangeKeywordTimer = setTimeout(() => onChangeKeyword(evt.target.value.split(' ')), DEBOUNCE_TIME);
+        setDebounceTimer(setTimeout(() => onChangeKeyword(evt.target.value.split(' ')), DEBOUNCE_TIME));
         
         setRaw(evt.target.value);
       }} value={raw} />
