@@ -119,6 +119,10 @@ export const App = (props: AppProps) => {
    */
   useEffect(() => {
     loadImage(imagesPerRequest * firstLoadMultiple, true, 0, {});
+    
+    // 스크롤을 제자리로 두지 않으면 스크롤이 제일 아래에 붙은 상태로 
+    // 계속 로딩이 되는 버그가 생김
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [keywords]);
 
   /**
