@@ -116,7 +116,7 @@ export const SearchEngine = (props: SearchEngineProps) => {
       {/* 검색 버튼 */}
       <input type='button' value='Search' onClick={() => {
         props.onSearchStart(keywords);
-        
+
         setRecommendationOn(false);
       }} />
 
@@ -130,7 +130,7 @@ export const SearchEngine = (props: SearchEngineProps) => {
           setDebounceTimer(setTimeout(() => onChangeKeyword(evt.target.value.split(' ')), DEBOUNCE_TIME));
           
           setRaw(evt.target.value);
-        }} onKeyUp={(evt: React.KeyboardEvent <HTMLInputElement>) => {
+        }} onKeyUp={(evt) => {
           // 키보드 엔터를 치면 onSearchStart를 호출한다.
           if (evt.key === 'Enter') {
             props.onSearchStart(keywords);
