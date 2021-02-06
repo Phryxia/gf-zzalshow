@@ -31,14 +31,21 @@ app.get('/api', async (req, res) => {
     const body = await response.text();
 
     const json = convert.xml2json(body, {compact: true, spaces: 4});
+    const jsonObject = JSON.parse(json);
+    if (!(jsonObject.posts.post instanceof Array)) {
+      // posts의 길이가 1인 경우, post를 배열로 안주고 오브젝트로 줌
+      // api의 일관성을 위해서 배열을 주도록 바꿈
+      jsonObject.posts.post = [jsonObject.posts.post];
+    }
     
     res.writeHead(200, {
       'Content-Type': 'application/json',
       'Acess-Control-Allow-Origin': '<origin>'
     });
-    res.end(json);  
+    res.end(JSON.stringify(jsonObject));  
   }
   catch (error) {
+    console.log(error);
     res.writeHead(500);
     res.end();
   }
