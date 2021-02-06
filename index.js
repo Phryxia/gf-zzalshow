@@ -32,9 +32,14 @@ app.get('/api', async (req, res) => {
 
     const json = convert.xml2json(body, {compact: true, spaces: 4});
     const jsonObject = JSON.parse(json);
-    if (!(jsonObject.posts.post instanceof Array)) {
+    
+    // api의 일관성을 위해서 배열을 주도록 바꿈
+    if (!jsonObject.posts.post) {
+      // posts의 길이가 0인 경우, post가 undefined이다.
+      jsonObject.posts.post = [];
+    }
+    else if (!(jsonObject.posts.post instanceof Array)) {
       // posts의 길이가 1인 경우, post를 배열로 안주고 오브젝트로 줌
-      // api의 일관성을 위해서 배열을 주도록 바꿈
       jsonObject.posts.post = [jsonObject.posts.post];
     }
     
