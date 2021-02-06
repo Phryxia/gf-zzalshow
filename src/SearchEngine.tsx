@@ -54,9 +54,6 @@ export const SearchEngine = (props: SearchEngineProps) => {
       }
 
       setRecommendations(new_recommendations);
-
-      // 로드가 완료됐으면 추천 검색어를 보여준다.
-      setRecommendationOn(true);
     })
     .catch(exception => console.log(exception));
   }, [keywords]);
@@ -86,6 +83,8 @@ export const SearchEngine = (props: SearchEngineProps) => {
       return;
 
     setKeywords([... new_keywords]);
+    
+    setRecommendationOn(true);
   };
 
   /**
