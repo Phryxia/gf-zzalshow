@@ -93,6 +93,7 @@ header h1 {
 
 /* 모달창 */
 .modal {
+  width: min-content;
   max-width: 80vw;
   max-height: 80vh;
 
@@ -113,16 +114,15 @@ header h1 {
 /* 모달창 이미지 */
 .modal-image {
   max-height: 53vh;
-  width: 100%;
+  max-width: 80vw;
   object-fit: contain;
   border-radius: 5px;
   margin-left: auto;
   margin-right: auto;
 }
 
-/* 모달창 우측 이미지 정보 */
+/* 모달창 이미지 정보 */
 .modal-info {
-  width: 100%;
   height: 27vh;
   margin-left: 5px; 
 }
