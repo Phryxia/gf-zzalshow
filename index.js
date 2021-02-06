@@ -47,7 +47,7 @@ app.get('/api', async (req, res) => {
       'Content-Type': 'application/json',
       'Acess-Control-Allow-Origin': '<origin>'
     });
-    res.end(JSON.stringify(jsonObject));  
+    res.end(JSON.stringify(jsonObject));
   }
   catch (error) {
     console.log(error);
@@ -76,8 +76,6 @@ app.get('/tags', async (req, res) => {
     const jsonArray = [];
     
     for (const tr of trList) {
-      const json = {};
-
       try {
         // td를 불러온다.
         const tdPosts = tr.nextElement;
