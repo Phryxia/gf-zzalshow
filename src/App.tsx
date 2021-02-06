@@ -99,7 +99,7 @@ export const App = (props: AppProps) => {
       const curY = document.documentElement.scrollTop;
       const curH = window.innerHeight;
 
-      if (curY + curH >= document.body.scrollHeight) {
+      if (curY + curH >= document.body.scrollHeight * 0.8) {
         setAppend(true);
       }
     };
