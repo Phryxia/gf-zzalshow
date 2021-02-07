@@ -78,6 +78,8 @@ header h1 {
   background-color: #006ffa;
   color: white;
   font-size: 20px;
+
+  cursor: pointer;
 }
 
 /* 모달창 뒷 배경 */
