@@ -129,6 +129,9 @@ export const SearchEngine = (props: SearchEngineProps) => {
         }} onKeyUp={(evt) => {
           // 키보드 엔터를 치면 onSearchStart를 호출한다.
           if (evt.key === 'Enter') {
+            if (debounceTimer)
+              clearTimeout(debounceTimer);
+              
             props.onSearchStart(keywords);
 
             setRecommendationOn(false);
