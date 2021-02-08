@@ -94,6 +94,7 @@ export const App = (props: AppProps) => {
         setPid(pageId + 1);
       }
       setUrls({ ... urls });
+      setAppend(false);
     })
     .catch(exception => console.log(exception));
   };
@@ -130,10 +131,8 @@ export const App = (props: AppProps) => {
    * append가 true가 되면 이미지를 추가로 로드한다.
    */
   useEffect(() => {
-    if (append) {
-      setAppend(false);
+    if (append)
       loadImage(imagesPerRequest, false, pid, urls);
-    }
   }, [append]);
 
   /**
