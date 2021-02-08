@@ -21,12 +21,18 @@ export const App = (props: AppProps) => {
   // 모달에 띄울 이미지
   const [selectedImage, setSelectedImage] = useState(null);
 
-  // 검색 키워드들
+  // 검색 엔진에서 콜백으로 올려보내주는 검색 키워드를 저장
+  // keywords가 바뀌면 이미지도 전부 새로 로드해야함
   const [keywords, setKeywords] = useState([] as string[]);
 
+  // 스크롤을 밑바닥까지 내렸을 때 이미지를 추가로드하도록 하는 플래그
   const [append, setAppend] = useState(false);
 
+  // 로드된 적 있는 이미지의 URL을 저장하는 곳. 중복로드 방지
   const [urls, setUrls] = useState({});
+
+  // 스크롤 디바운스용
+  const [scrollTimer, setScrollTimer] = useState(null);
 
   // API 로드 함수
   const loadImage = (numOfImage: number, clear: boolean, pageId: number, urls: {}): void => {
@@ -91,27 +97,22 @@ export const App = (props: AppProps) => {
     })
     .catch(exception => console.log(exception));
   };
-  
-  // 앱이 최초로 렌더링 될 때 한 번만 실행
-  useEffect(() => {
-    // 스크롤이 될 때 호출됨
-    const onScroll = () => {
-      const curY = document.documentElement.scrollTop;
-      const curH = window.innerHeight;
 
-      if (curY + curH >= document.body.scrollHeight * 0.8) {
-        setAppend(true);
-      }
-    };
+  // 스크롤이 끝났을 때 스크롤이 임계영역에 도달했는지 확인한 후
+  // 이벤트를 발생시킨다.
+  const scrollDebouncer = () => {
+    const curY = document.documentElement.scrollTop;
+    const curH = window.innerHeight;
 
-    // onScroll 디바운싱
-    let onScrollTimer = null;
-    window.onscroll = () => {
-      if (onScrollTimer)
-        clearTimeout(onScrollTimer);
-      onScrollTimer = setTimeout(onScroll, 100);
-    };
-  }, []);
+    if (curY + curH >= document.body.scrollHeight * 0.8)
+      setAppend(true);
+  };
+
+  window.onscroll = () => {
+    if (scrollTimer) 
+      clearInterval(scrollTimer);
+    setScrollTimer(setTimeout(scrollDebouncer, 100));
+  };
 
   /**
    * 키워드가 변경되면 이미지를 다 지우고 새로 로드한다.
