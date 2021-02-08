@@ -21,11 +21,14 @@ export const App = (props: AppProps) => {
   // 모달에 띄울 이미지
   const [selectedImage, setSelectedImage] = useState(null);
 
-  // 검색 키워드들
+  // 검색 엔진에서 콜백으로 올려보내주는 검색 키워드를 저장
+  // keywords가 바뀌면 이미지도 전부 새로 로드해야함
   const [keywords, setKeywords] = useState([] as string[]);
 
+  // 스크롤을 밑바닥까지 내렸을 때 이미지를 추가로드하도록 하는 플래그
   const [append, setAppend] = useState(false);
 
+  // 로드된 적 있는 이미지의 URL을 저장하는 곳. 중복로드 방지
   const [urls, setUrls] = useState({});
 
   // 스크롤 디바운스용
@@ -87,7 +90,6 @@ export const App = (props: AppProps) => {
         setPid(pageId + firstLoadMultiple);
       }
       else {
-        console.log('concat');
         setMetaInfos(metaInfos.concat(newInfos));
         setPid(pageId + 1);
       }
